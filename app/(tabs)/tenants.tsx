@@ -4,7 +4,7 @@ import {
   StyleSheet, TextInput, Image, Linking, Alert, ActivityIndicator,
 } from 'react-native';
 import { useTenants } from '../../src/hooks';
-import { Colors, Spacing } from '../../constants/theme';
+import { Spacing } from '../../constants/theme';
 import { useRouter } from 'expo-router';
 import { deleteTenant } from '../../src/services/tenantsService';
 import { QuickMenu } from '../../components/QuickMenu';
@@ -37,8 +37,8 @@ const getInitials = (name: string) =>
 
 export default function TenantsScreen() {
   const router = useRouter();
-  const [search,    setSearch]   = useState('');
-  const [menuOpen,  setMenuOpen] = useState(false);
+  const [search,   setSearch]   = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
   const { data: tenants, loading, refetch } = useTenants();
 
   const filtered = useMemo(() =>
@@ -55,7 +55,7 @@ export default function TenantsScreen() {
     );
   };
 
-    const handleDelete = async (id: string, propertyId: string | undefined, name: string) => {
+  const handleDelete = async (id: string, propertyId: string | undefined, name: string) => {
     const confirmed = window.confirm(`Tem certeza que deseja excluir ${name}? O imóvel voltará a ficar disponível.`);
     if (!confirmed) return;
     try {
@@ -76,7 +76,6 @@ export default function TenantsScreen() {
 
   return (
     <View style={s.container}>
-      {/* Header */}
       <View style={s.header}>
         <Text style={s.brand}>Casas</Text>
         <View style={s.headerRight}>
@@ -97,7 +96,6 @@ export default function TenantsScreen() {
       <Text style={s.title}>Inquilinos</Text>
       <Text style={s.subtitle}>{filtered.length} inquilinos cadastrados</Text>
 
-      {/* Search */}
       <View style={s.searchBox}>
         <Text style={s.searchIcon}>🔍</Text>
         <TextInput
@@ -155,21 +153,31 @@ export default function TenantsScreen() {
                 </TouchableOpacity>
               </View>
 
-              {/* Right */}
+              {/* Right — botões de ação */}
               <View style={card.right}>
                 <StatusBadge status={payStatus} />
-                <TouchableOpacity
-                  style={card.waBtn}
-                  onPress={() => openWhatsApp(item.phone, item.full_name)}
-                >
-                  <Text style={card.waTxt}>WhatsApp</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={card.delBtn}
-                  onPress={() => handleDelete(item.id, item.property_id ?? undefined, item.full_name)}
-                >
-                  <Text style={card.delTxt}>🗑️</Text>
-                </TouchableOpacity>
+                <View style={card.actions}>
+                  <TouchableOpacity
+                    style={card.waBtn}
+                    onPress={() => openWhatsApp(item.phone, item.full_name)}
+                  >
+                    <Text style={card.waTxt}>💬 WhatsApp</Text>
+                  </TouchableOpacity>
+                  <View style={card.actionRow}>
+                    <TouchableOpacity
+                      style={card.editBtn}
+                      onPress={() => router.push(`/tenant/${item.id}/edit` as any)}
+                    >
+                      <Text style={card.editTxt}>✏️ Editar</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={card.delBtn}
+                      onPress={() => handleDelete(item.id, item.property_id ?? undefined, item.full_name)}
+                    >
+                      <Text style={card.delTxt}>🗑️</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
             </View>
           );
@@ -193,10 +201,14 @@ const card = StyleSheet.create({
   prop:          { fontSize: 12, color: '#555', flex: 1 },
   phone:         { fontSize: 12, color: '#444' },
   right:         { alignItems: 'flex-end', gap: 8, flexShrink: 0 },
-  waBtn:         { backgroundColor: '#25D366', borderRadius: 8, paddingHorizontal: 10, paddingVertical: 6 },
-  waTxt:         { fontSize: 11, fontWeight: '700', color: '#fff' },
-  delBtn:        { backgroundColor: 'rgba(229,57,53,0.15)', borderRadius: 8, paddingHorizontal: 10, paddingVertical: 6 },
-  delTxt:        { fontSize: 14 },
+  actions:       { alignItems: 'flex-end', gap: 6 },
+  actionRow:     { flexDirection: 'row', gap: 6 },
+  waBtn:         { backgroundColor: '#25D366', borderRadius: 10, paddingHorizontal: 12, paddingVertical: 7 },
+  waTxt:         { fontSize: 12, fontWeight: '700', color: '#fff' },
+  editBtn:       { backgroundColor: 'rgba(245,197,24,0.15)', borderWidth: 1, borderColor: 'rgba(245,197,24,0.3)', borderRadius: 10, paddingHorizontal: 12, paddingVertical: 7 },
+  editTxt:       { fontSize: 12, fontWeight: '700', color: '#F5C518' },
+  delBtn:        { backgroundColor: 'rgba(229,57,53,0.12)', borderWidth: 1, borderColor: 'rgba(229,57,53,0.3)', borderRadius: 10, paddingHorizontal: 10, paddingVertical: 7 },
+  delTxt:        { fontSize: 13 },
 });
 
 const s = StyleSheet.create({

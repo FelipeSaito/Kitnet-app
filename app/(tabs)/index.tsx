@@ -34,23 +34,24 @@ export default function DashboardScreen() {
   );
 
   const renderItem = ({ item, index }: { item: PropertyFull; index: number }) => (
-    <View style={[s.cardWrapper, index % 2 === 0 ? s.cardLeft : s.cardRight]}>
-      <KitnetCard
-        kitnet={{
-          id: item.id as any,
-          name: item.name,
-          region: item.region_name as any,
-          address: item.address,
-          status: item.status,
-          price: item.rent_value,
-          image: item.image_url,
-          featured: false,
-          paymentStatus: item.payment_status as any,
-        }}
-        onPress={() => router.push(`/kitnet/${item.id}` as any)}
-      />
-    </View>
-  );
+  <View style={[s.cardWrapper, index % 2 === 0 ? s.cardLeft : s.cardRight]}>
+    <KitnetCard
+      kitnet={{
+        id: item.id as any,
+        name: item.name,
+        region: item.region_name as any,
+        address: item.address,
+        status: item.status,
+        price: item.rent_value,
+        image: item.image_url,
+        due_day: item.due_day,
+        featured: false,
+        paymentStatus: item.payment_status as any,
+      }}
+      onPress={() => router.push(`/kitnet/${item.id}` as any)}
+    />
+  </View>
+);
 
   return (
     <View style={s.container}>

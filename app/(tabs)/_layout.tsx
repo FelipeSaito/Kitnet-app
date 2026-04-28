@@ -1,6 +1,5 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
 import { Colors } from '../../constants/theme';
 import Svg, { Path, Rect, Line, Circle } from 'react-native-svg';
 
@@ -40,6 +39,15 @@ function FinanceIcon({ color }: { color: string }) {
     <Svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={1.8} strokeLinecap="round">
       <Line x1="12" y1="2" x2="12" y2="22" />
       <Path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+    </Svg>
+  );
+}
+
+function UtilityIcon({ color }: { color: string }) {
+  return (
+    <Svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={1.8} strokeLinecap="round">
+      <Path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z" />
+      <Path d="M12 6v6l4 2" />
     </Svg>
   );
 }
@@ -102,6 +110,13 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color }) => <FinanceIcon color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="utilities"
+        options={{
+          title: '',
+          tabBarIcon: ({ color }) => <UtilityIcon color={color} />,
         }}
       />
       <Tabs.Screen

@@ -6,6 +6,7 @@ import {
 import { generateMonthlyPayments } from '../src/services/paymentsService';
 import { supabase } from '../src/lib/supabase';
 import { format } from 'date-fns';
+import { useRouter } from 'expo-router';
 
 interface Props {
   visible: boolean;
@@ -16,6 +17,7 @@ const { width } = Dimensions.get('window');
 const DRAWER_WIDTH = width * 0.78;
 
 export const QuickMenu: React.FC<Props> = ({ visible, onClose }) => {
+  const router = useRouter();
   const translateX = useRef(new Animated.Value(DRAWER_WIDTH)).current;
   const opacity    = useRef(new Animated.Value(0)).current;
 
@@ -100,7 +102,7 @@ export const QuickMenu: React.FC<Props> = ({ visible, onClose }) => {
         .eq('status', 'pending');
 
       const overdueNames = (overdue ?? [])
-        .map(p => (p as any).properties?.name)
+        .map((p: any) => p.properties?.name)
         .filter(Boolean)
         .join(', ');
 
@@ -152,6 +154,14 @@ export const QuickMenu: React.FC<Props> = ({ visible, onClose }) => {
       bg: 'rgba(249,115,22,0.08)',
       onPress: handleNotificacoes,
     },
+    {
+      icon: '💧',
+      label: 'Lançar conta de água/luz',
+      sub: 'Registrar cobrança para um inquilino',
+      color: '#60a5fa',
+      bg: 'rgba(96,165,250,0.08)',
+      onPress: () => { router.push('/utility/new' as any); onClose(); },
+    },
   ];
 
   return (
@@ -175,7 +185,7 @@ export const QuickMenu: React.FC<Props> = ({ visible, onClose }) => {
 
         {/* Items */}
         <View style={s.items}>
-          {ITEMS.map((item, i) => (
+          {ITEMS.map((item: any, i: number) => (
             <TouchableOpacity
               key={i}
               style={[s.item, { backgroundColor: item.bg }]}

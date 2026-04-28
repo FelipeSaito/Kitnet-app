@@ -50,6 +50,7 @@ export default function RootLayout() {
       <Stack.Screen name="kitnet/new"       options={{ animation: 'slide_from_bottom' }} />
       <Stack.Screen name="kitnet/[id]/edit" options={{ animation: 'slide_from_right' }} />
       <Stack.Screen name="tenant/new"       options={{ animation: 'slide_from_bottom' }} />
+      <Stack.Screen name="utility/new" options={{ animation: 'slide_from_bottom' }} />
     </Stack>
         </>
   );
