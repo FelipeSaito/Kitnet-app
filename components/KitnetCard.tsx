@@ -9,11 +9,6 @@ interface Props {
   onPress: (kitnet: Kitnet) => void;
 }
 
-const EMOJI_MAP: Record<number, string> = {
-  1: '🏠', 2: '🏡', 3: '🏘️', 4: '🔨',
-  5: '🏠', 6: '🏡', 7: '🏘️', 8: '🏠',
-};
-
 export const KitnetCard: React.FC<Props> = ({ kitnet, onPress }) => {
   return (
     <TouchableOpacity
@@ -23,9 +18,15 @@ export const KitnetCard: React.FC<Props> = ({ kitnet, onPress }) => {
     >
       <View style={styles.imageContainer}>
         {kitnet.image ? (
-          <Image source={{ uri: kitnet.image }} style={styles.image} resizeMode="cover" />
+          <Image
+            source={{ uri: kitnet.image }}
+            style={styles.image}
+            resizeMode="cover"
+          />
         ) : (
-          <Text style={styles.emoji}>{EMOJI_MAP[kitnet.id] ?? '🏠'}</Text>
+          <View style={styles.imagePlaceholder}>
+            <Text style={styles.emoji}>🏠</Text>
+          </View>
         )}
       </View>
       <View style={styles.body}>
@@ -59,12 +60,16 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 130,
     backgroundColor: Colors.card2,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   image: {
     width: '100%',
     height: '100%',
+  },
+  imagePlaceholder: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   emoji: {
     fontSize: 48,
