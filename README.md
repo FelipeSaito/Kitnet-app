@@ -104,3 +104,6 @@ casas-kitnet-manager/
 | Configurações | ✅ |
 | Bottom Navigation | ✅ |
 | Integração WhatsApp | ✅ |
+
+
+
