@@ -1,28 +1,38 @@
 {
   "expo": {
-    "name": "Kitnet App",
-    "slug": "Kitnet App",
+    "name": "Casas Kitnet",
+    "slug": "casaskitnetmanager",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
-    "splash": {
-      "backgroundColor": "#0a0a0a"
-    },
-    "ios": {
-      "supportsTablet": false,
-      "bundleIdentifier": "com.seu.casaskitnet"
-    },
+    "scheme": "casaskitnet",
     "android": {
+      "package": "com.casaskitnet.manager",
+      "versionCode": 1,
       "adaptiveIcon": {
-        "backgroundColor": "#0a0a0a"
+        "backgroundColor": "#000000"
       },
-      "package": "com.seu.casaskitnet"
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Permitir acesso às fotos para adicionar imagens às kitnets."
+        }
+      ]
     ],
-    "scheme": "Kitnet App"
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c02ba647-63a4-4aec-857e-7e72411f5172"
+      }
+    }
   }
 }

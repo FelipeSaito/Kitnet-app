@@ -1,7 +1,9 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
+import { Platform } from 'react-native';
 import { Colors } from '../../constants/theme';
 import Svg, { Path, Rect, Line, Circle } from 'react-native-svg';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 function DashboardIcon({ color }: { color: string }) {
   return (
@@ -62,6 +64,8 @@ function SettingsIcon({ color }: { color: string }) {
 }
 
 export default function TabLayout() {
+  const insets = useSafeAreaInsets();
+
   return (
     <Tabs
       screenOptions={{
@@ -70,8 +74,8 @@ export default function TabLayout() {
           backgroundColor: '#0E0E0A',
           borderTopColor: Colors.border,
           borderTopWidth: 1,
-          height: 76,
-          paddingBottom: 12,
+          height: 60 + insets.bottom,
+          paddingBottom: insets.bottom + 4,
           paddingTop: 10,
         },
         tabBarActiveTintColor: Colors.gold,
